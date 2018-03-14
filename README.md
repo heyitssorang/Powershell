@@ -1,3 +1,4 @@
 # Powershell
 Powershell Administration Repository
-Mainly Office365, AD, Windows
+
+Mainly for Office365, AD, Windows
