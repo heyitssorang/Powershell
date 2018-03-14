@@ -25,10 +25,10 @@ function CallJIRAJQL
     )
     $objTable = @()
 
-    $server = "https://touton.atlassian.net"
+    $server = "url"
     $Method = "GET"
-    $userPassword = ConvertTo-SecureString -String "ZebraOrangeWash3#" -AsPlainText -Force
-    $Credential = New-Object System.Management.Automation.PSCredential (“Jira@mtouton.com”, $userPassword)
+    $userPassword = ConvertTo-SecureString -String "pass" -AsPlainText -Force
+    $Credential = New-Object System.Management.Automation.PSCredential (“user”, $userPassword)
 
     $objTable = @()
     $counter = 0
