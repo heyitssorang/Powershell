@@ -12,21 +12,21 @@
 ## command-line parameters must be trapped immediately or they'll throw an error
 ## $JobName = the name of the job (defined in VMExportConfig.xml) to be run; if none, an "export-all with defaults" job is executed
 ## $Subfolder = the name of a subfolder to be used/created under the export path; if empty, use the folder as defined
-param ([String]$JobName="",[String]$Subfolder="")			# this must be trapped right at the top; if no job is specified, just export everything
+param ([String]$JobName="",[String]$Subfolder="")	# this must be trapped right at the top; if no job is specified, just export everything
 
 ## Global "Constants" (actually variables, but are unchangeable by functions)
 $ScriptDir = Split-Path (Get-Variable MyInvocation).Value.MyCommand.Path
-$ConfigFile = "$ScriptDir\VMExportConfig.xml"				# Modify this to change where configuration data is saved
-$DefaultLogFile = "$ScriptDir\VMExport.log"					# Modify this to change default log location (overriden when config file is read)
-$OpsTimeOut = 360											# Seconds to wait for a process before continuing without it (mostly, how long to wait for a VM to finish changing state before skipping it)
+$ConfigFile = "$ScriptDir\VMExportConfig.xml"		# Modify this to change where configuration data is saved
+$DefaultLogFile = "$ScriptDir\VMExport.log"		# Modify this to change default log location (overriden when config file is read)
+$OpsTimeOut = 360					# Seconds to wait for a process before continuing without it (mostly, how long to wait for a VM to finish changing state before skipping it)
 
 ## Global variables
-$global:ConfigData = ""										# Holds configuration data as read from the config XML file
-[String]$global:LogFile	= $DefaultLogFile					# Where messages will be stored
-$ThisHost = Get-Content env:computername					# Get the name of this computer
-$global:ActionBeforeExport = "Save"							# Will be reset by config load
-$global:IncludeOrExclude	= "Exclude"						# Will be reset by config load
-[String[]]$global:Hosts = @()								# Array of host names
+$global:ConfigData = ""					# Holds configuration data as read from the config XML file
+[String]$global:LogFile	= $DefaultLogFile		# Where messages will be stored
+$ThisHost = Get-Content env:computername		# Get the name of this computer
+$global:ActionBeforeExport = "Save"			# Will be reset by config load
+$global:IncludeOrExclude	= "Exclude"		# Will be reset by config load
+[String[]]$global:Hosts = @()				# Array of host names
 
 ############## Functions ##############
 
