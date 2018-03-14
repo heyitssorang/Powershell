@@ -1,0 +1,52 @@
+Notes
+
+    The user account that runs the script will need local administrative privileges
+    on the Hyper-V host
+
+    An "Exclude" job does not allow you to set special-case conditions on VMs.
+    They will all follow the job defaults.
+
+    Running the export script without a job name will export all VMs using the
+    default conditions.
+
+    The export job has no screen output except to notify you that it has no
+    screen output. It writes to the log file as specified in the configurator.
+
+    The export script does not clean up the log file. Ever. The configurator
+    tool has an option to clear it. You can also open the log file in a text
+    editor, empty it, and save it.
+
+    If the export script is told to export to a location that already contains
+    an export of that VM, the existing export is simply deleted.
+
+Setup
+
+    Copy the contents to a permanent location on a Hyper-V host
+
+    Enable .Net Framework and Powershell if not already
+    DISM /Online /Enable-Features /FeatureName:NetFx2-ServerCore
+    /FeatureName:MicrosoftWindowsPowerShell
+    /FeatureName:NetFx2-ServerCore-WOW64
+
+    Set-ExecutionPolicy RemoteSigned
+
+    Change permissions on that share and set the permissions 
+    for the computer accounts. "Change" is sufficient on the share 
+    and "Modify" is enough for NTFS.
+
+Usage
+
+    On the server, use the command prompt and navigate to the folder where you
+    placed the scripts
+
+    POWERSHELL .\Configure-VM-Export.ps1"
+
+    POWERSHELL .\Export-VMs [-JobName] [-Subfolder]
+
+Scheduled Tasks
+    "Start a program": 
+    Program:  POWERSHELL.exe
+    Argument: "C:\Scripts\Export-VMs.ps1" "JobName" "FolderName"
+
+    The job must be set to run with highest privileges and an account that fits
+    those listed under "Necessary Privileges".
