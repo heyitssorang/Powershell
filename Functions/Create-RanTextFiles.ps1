@@ -14,4 +14,4 @@ function Create-RanTextFiles {
     }
 }
 
-Create-RanTextFiles -Count 10 -Path "C:\temp\Test1"
+Create-RanTextFiles -Count 1000 -Path "C:\temp\Test1"
