@@ -17,8 +17,8 @@ function Parse-MSFTRSSXml {
     $patchList = New-Object -TypeName "System.Collections.ArrayList"
 
     ForEach ($msg in $feed.Item){
-        If ($msg.title -like "*Monthly Rollup*" -or $msg.title -like "*OS Build*") {
-            $tempDate = [datetime]::parseexact($msg.title.Split('-KB')[0].Trim(" "), 'MMMM dd, yyyy', $null)
+        If ($msg.title -like "*Monthly Rollup*" -or $msg.title -like "*OS Build*" -and $msg.title -notlike "Windows Server base*") {
+            $tempDate = [datetime]::parseexact($msg.title.Split('-KB')[0].Trim('—'), 'MMMM d, yyyy', $null)
             $obj = [PSCustomObject]@{
                 'Link'          = $msg.link
                 'Description'   = $msg.title
@@ -29,9 +29,8 @@ function Parse-MSFTRSSXml {
             $patchList += $obj
         }
     }
-
+    $patchList = $patchList | Sort-Object -Property PatchDate
     return $patchList
 }
 
 $MRList_2019 = Parse-MSFTRSSXml -Uri $2019
-
